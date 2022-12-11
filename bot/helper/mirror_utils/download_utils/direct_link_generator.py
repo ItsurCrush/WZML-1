@@ -22,8 +22,6 @@ from lxml import etree
 from cfscrape import create_scraper
 from bs4 import BeautifulSoup
 from base64 import standard_b64encode, b64decode
-from selenium import webdriver
-from selenium.webdriver.common.by import By
 from playwright.sync_api import Playwright, sync_playwright, expect
 
 from bot import LOGGER, config_dict
@@ -683,6 +681,8 @@ def udrive(url: str) -> str:
     if "katdrive" in url:
         client.cookies.update({"crypt": config_dict['KATDRIVE_CRYPT']})
     if "kolop" in url:
+        if "kolop.icu" in url:
+            url = url.replace(".icu",".cyou")
         client.cookies.update({"crypt": config_dict['KATDRIVE_CRYPT']})
     if "drivefire" in url:
         client.cookies.update({"crypt": config_dict['DRIVEFIRE_CRYPT']})
